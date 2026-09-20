@@ -1,3 +1,3 @@
-module github.com/YounessBrunno/Go-HTTP-Reverse-Proxy-with-Traffic-Shaping
+module github.com/YounessBrunno/FluxGate
 
 go 1.22
