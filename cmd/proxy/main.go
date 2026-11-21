@@ -1,7 +1,10 @@
 package proxy
 
 import ("net/http"
-         "net/url")
+        
+		 _ "github.com/YounessBrunno/FluxGate/internal/proxy"
+		)
+		
 
 
 func main() {

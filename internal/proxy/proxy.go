@@ -1,5 +1,5 @@
 package proxy
 
-func handler()  {
+func Proxy()  {
 	
 }
