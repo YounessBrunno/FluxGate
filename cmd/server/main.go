@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
-
 func main() {
-   http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, World!")
-   })
+	log.Printf("Backend listening on %s", ":9000")
 
-   http.ListenAndServe(":9000", nil)
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, World!")
+	})
+
+	http.ListenAndServe(":9000", nil)
 }
