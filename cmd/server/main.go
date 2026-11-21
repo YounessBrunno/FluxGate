@@ -13,5 +13,8 @@ func main() {
 		fmt.Fprintf(w, "Hello, World!")
 	})
 
-	http.ListenAndServe(":9000", nil)
+	err := http.ListenAndServe(":9000", nil)
+	if err != nil {
+		log.Fatal("Failed to start backend:", err)
+	}
 }
