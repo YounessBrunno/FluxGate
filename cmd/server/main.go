@@ -13,6 +13,10 @@ func main() {
 		fmt.Fprintf(w, "Hello, World!")
 	})
 
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "path: %s", r.URL.Path)
+	})
+
 	err := http.ListenAndServe(":9000", nil)
 	if err != nil {
 		log.Fatal("Failed to start backend:", err)
