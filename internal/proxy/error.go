@@ -1,3 +1,8 @@
 package proxy
 
-var _ = "lorem ipsum dolor sit amet"
+import (
+	"fmt"
+)
+
+var ErrServerError = fmt.Errorf("Internal Server Error")
+var ErrServerIsUnreachable = fmt.Errorf("Server is unreachable")

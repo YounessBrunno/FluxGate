@@ -5,10 +5,17 @@ import (
 	"time"
 	"log"
 	"net/http"
+	"github.com/YounessBrunno/FluxGate/internal/config"
 )
 
 func main() {
-	log.Printf("Backend listening on %s", ":9000")
+
+    cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatal("Failed to load config:", err)
+	}
+
+	log.Printf("Backend listening on %s", ":" + cfg.ServerPort)
 
 	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, World!")
@@ -30,7 +37,7 @@ func main() {
 		}
 	})
 
-	err := http.ListenAndServe(":9000", nil)
+	err = http.ListenAndServe(":" + cfg.ServerPort, nil)
 	if err != nil {
 		log.Fatal("Failed to start backend:", err)
 	}

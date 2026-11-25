@@ -26,5 +26,5 @@ func NewProxy(target *url.URL) (*Proxy, error) {
 
 
 func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    p.reverseProxy.ServeHTTP(w, r)
+   p.reverseProxy.ServeHTTP(w, r) 
 }

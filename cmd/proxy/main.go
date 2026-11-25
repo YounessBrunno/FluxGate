@@ -4,13 +4,18 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-
-	proxy "github.com/YounessBrunno/FluxGate/internal/proxy"
+    "github.com/YounessBrunno/FluxGate/internal/config"
+	"github.com/YounessBrunno/FluxGate/internal/proxy"
 )
 
 func main() {
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatal("Failed to load config:", err)
+	}
+
     // Parse the target URL for the reverse proxy ;)
-    target, err := url.Parse("http://localhost:9000")
+    target, err := url.Parse("http://" + cfg.Host + ":" + cfg.ServerPort)
 	if err != nil {
 		log.Fatal("Failed to parse target URL:", err)
 	}
@@ -20,7 +25,7 @@ func main() {
 		log.Fatal("Failed to create proxy:", err)
 	}
 
-	log.Printf("Proxy listening on %s", ":8080")
+	log.Printf("Proxy listening on %s", ":" + cfg.ProxyPort)
 	
-	log.Fatal(http.ListenAndServe(":8080", p))
+	log.Fatal(http.ListenAndServe(":" + cfg.ProxyPort, p))
 }
