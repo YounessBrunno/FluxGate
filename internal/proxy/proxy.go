@@ -2,6 +2,7 @@ package proxy
 
 import (
 	"net/http"
+    "log"
 	"net/http/httputil"
 	"net/url"
 )
@@ -17,6 +18,20 @@ func NewProxy(target *url.URL) (*Proxy, error) {
             r.SetURL(target)
             r.SetXForwarded()
         },
+        ErrorHandler: func(w http.ResponseWriter, r *http.Request, err error) {
+            log.Printf(
+                "backend request failed: method=%s path=%s error=%v",
+                r.Method,
+                r.URL.Path,
+                err,
+            )
+
+            http.Error(
+                w,
+                "The backend service is unavailable.",
+                http.StatusBadGateway,
+            )
+       },
     }
 
     return &Proxy{
