@@ -15,7 +15,7 @@ type Config struct {
 }
 
 
-func LoadConfig() (Config, error) {
+func Load() (Config, error) {
 
 	_ = godotenv.Load(".env.local", ".env")
 
