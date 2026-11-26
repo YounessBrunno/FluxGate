@@ -7,6 +7,7 @@ import (
 	"net/url"
     "github.com/YounessBrunno/FluxGate/internal/config"
 	"github.com/YounessBrunno/FluxGate/internal/proxy"
+	"github.com/YounessBrunno/FluxGate/internal/middleware"
 )
 
 func main() {
@@ -20,6 +21,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to parse target URL:", err)
 	}
+
+	
     // Create a new proxy instance	
 	p, err := proxy.NewProxy(target)
 	if err != nil {
@@ -30,7 +33,7 @@ func main() {
 	
 	server := &http.Server{
 		Addr:    ":" + cfg.ProxyPort,
-		Handler: p,
+		Handler: middleware.RequestLogger(p),
 		ReadHeaderTimeout: 5 * time.Second,
         ReadTimeout:       10 * time.Second,
         WriteTimeout:      15 * time.Second,
