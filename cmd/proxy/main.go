@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 	"net/url"
     "github.com/YounessBrunno/FluxGate/internal/config"
 	"github.com/YounessBrunno/FluxGate/internal/proxy"
@@ -27,5 +28,14 @@ func main() {
 
 	log.Printf("Proxy listening on %s", ":" + cfg.ProxyPort)
 	
-	log.Fatal(http.ListenAndServe(":" + cfg.ProxyPort, p))
+	server := &http.Server{
+		Addr:    ":" + cfg.ProxyPort,
+		Handler: p,
+		ReadHeaderTimeout: 5 * time.Second,
+        ReadTimeout:       10 * time.Second,
+        WriteTimeout:      15 * time.Second,
+        IdleTimeout:       60 * time.Second,
+	}
+
+	log.Fatal(server.ListenAndServe())
 }

@@ -36,8 +36,17 @@ func main() {
 			fmt.Fprintf(w, "User: %s\n", user)
 		}
 	})
+    
+    server := &http.Server{
+		Addr:    ":" + cfg.ServerPort,
+		Handler: nil,
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      15 * time.Second,
+		IdleTimeout:       60 * time.Second,
+	}
 
-	err = http.ListenAndServe(":" + cfg.ServerPort, nil)
+	err = server.ListenAndServe()
 	if err != nil {
 		log.Fatal("Failed to start backend:", err)
 	}
