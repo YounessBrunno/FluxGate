@@ -1,8 +1,6 @@
 package proxy
 
-import (
-	"fmt"
-)
+import "errors"
 
-var ErrServerError = fmt.Errorf("Internal Server Error")
-var ErrServerIsUnreachable = fmt.Errorf("Server is unreachable")
+var ErrServerError = errors.New("internal server error")
+var ErrServerIsUnreachable = errors.New("server is unreachable")
