@@ -2,7 +2,7 @@
 set -e
 
 echo "Starting backend..."
-air --build.cmd "go build -o ./tmp/server ./cmd/server" --build.bin "./tmp/server" &
+go run ./cmd/server &
 SERVER_PID=$!
 
 cleanup() {
@@ -12,4 +12,4 @@ cleanup() {
 trap cleanup EXIT
 
 echo "Starting proxy..."
-air --build.cmd "go build -o ./tmp/proxy ./cmd/proxy" --build.bin "./tmp/proxy"
+go run ./cmd/proxy
